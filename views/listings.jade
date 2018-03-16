@@ -1,0 +1,63 @@
+//
+   Created by rashid-laptop on 2016-03-27.
+
+extends layout
+block content
+
+    nav(class="navbar navbar-default navbar-fixed-top" role="navigation")
+        div(class="navbar-header"
+        style="margin-left: 8%;")
+            a(class="navbar-brand", href="/") WeFixIt
+        div(style="margin-right: 2%;")
+
+            ul(class="nav navbar-nav navbar-right")
+                if (isAdmin)
+                    li
+                        a(href="/admin.html" class="btn") Admin
+                li
+                    a(href="/listings.html" class="btn") Home
+                li
+                    a(href="/profile" class="btn") My Profile
+                li
+                    a(href="/edit" class="btn") Edit Profile
+                li
+                    a(href="/contact" class="btn") Contact Us
+                li
+                    a(href="/logout" class="btn") Logout
+
+
+    .row(id="below_navbar")
+        .col-md-1
+            
+        .col-md-2(id="category_sidebar")
+            form(action="/listings.html" method='post')
+                each prof in filters
+                    .checkbox
+                        input(type="checkbox" id="#{prof.profession}_filter" name="#{prof.profession}")
+                        label(for="#{prof.profession}_filter") #{prof.profession}
+                        label (#{prof.count})
+                input(class='btn btn-default' type="submit" value='Filter')
+        .col-md-8(id="filter_results")
+            table(class="table table-hover table-responsive")
+                thead
+                    tr
+                        th Name
+                        th Professions
+                        th(class="align-right") Rating
+                tbody
+                    each person in people
+                        if (person.local.email != 'admin' && person.local.email != email && person.facebook.email != email)
+                            tr
+                                td(class="valign-middle" data-label="Name")
+                                    if person.local.email
+                                        a(href="./profile/#{person._id}") #{person.local.name}
+                                    if person.facebook.email
+                                        a(href="./profile/#{person._id}") #{person.facebook.name}
+                                td(class="valign-middle" data-label="Profession")
+                                    each ability in person.professions
+                                        if ability != ""
+                                            p #{ability}
+                                td(class="valign-middle align-right" data-label="Rating")
+                                    span(class="glyphicon glyphicon-star-empty") #{person.rating}
+                                
+

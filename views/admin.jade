@@ -1,0 +1,65 @@
+//
+   Created by rashid-laptop on 2016-03-27.
+
+extends layout
+block content
+    nav(class="navbar navbar-default navbar-fixed-top" role="navigation")
+        div(class="navbar-header"
+        style="margin-left: 8%;")
+            a(class="navbar-brand", href="/") WeFixIt
+        div(style="margin-right: 2%;")
+
+            ul(class="nav navbar-nav navbar-right")
+                li
+                    a(href="/listings.html" class="btn") Home
+                li
+                    a(href="/profile" class="btn") My Profile
+                li
+                    a(href="/edit" class="btn") Edit Profile
+                li
+                    a(href="/contact" class="btn") Contact Us
+                li
+                    a(href="/logout" class="btn") Logout
+    .container
+        h2 Administrator Page
+        table(class="table table-hover table-responsive")
+            thead
+                tr
+                    th Name
+                    th Email
+                    th Profession
+                    th Edit
+                    th Suspend
+                    th Continue
+                    th Delete
+            tbody
+                each person in people
+                    tr
+                        if (person.local.email != 'admin')
+                            td(class="valign-middle" data-label="Name")
+                                if person.local.email
+                                    a(href="./profile/#{person._id}") #{person.local.name}
+                                if person.facebook.email
+                                    a(href="./profile/#{person._id}") #{person.facebook.name}
+                            td(class="valign-middle" data-label="Email")
+                                if person.local.email
+                                    p #{person.local.email}
+                                if person.facebook.email
+                                    p #{person.facebook.email}
+                            td(class="valign-middle" data-label="Profession")
+                                each ability in person.professions
+                                    if ability != ""
+                                        p #{ability}
+                            td(class="valign-middle align-right" data-label="Edit")
+                                a(href='/edit/' + person._id, class="btn btn-info")
+                                    i(class="glyphicon glyphicon-pencil")
+                            td(class="valign-middle align-right" data-label="Suspend")
+                                a(href='/suspend/' + person._id, class="btn btn-info")
+                                    i(class="glyphicon glyphicon-remove")
+                            td(class="valign-middle align-right" data-label="Continue")
+                                a(href='/continue/' + person._id, class="btn btn-info")
+                                    i(class="glyphicon glyphicon-ok")
+                            td(class="valign-middle align-right" data-label="Delete")
+                                a(href='/delete/' + person._id, class="btn btn-info")
+                                    i(class="glyphicon glyphicon-trash")
+

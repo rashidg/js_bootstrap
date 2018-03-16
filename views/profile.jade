@@ -1,0 +1,48 @@
+extends layout
+block content
+
+    nav(class="navbar navbar-default navbar-fixed-top" role="navigation")
+        div(class="navbar-header"
+        style="margin-left: 8%;")
+            a(class="navbar-brand", href="/") WeFixIt
+        div(style="margin-right: 2%;")
+
+            ul(class="nav navbar-nav navbar-right")
+                if (isAdmin)
+                    li
+                        a(href="/admin.html" class="btn") Admin
+                li
+                    a(href="/listings.html" class="btn") Home
+                li
+                    a(href="/profile" class="btn") My Profile
+                li
+                    a(href="/edit" class="btn") Edit Profile
+                li
+                    a(href="/contact" class="btn") Contact Us
+                li
+                    a(href="/logout" class="btn") Logout
+
+    .container
+
+        h1 #{user.local.name}
+        p #{user.education} #{user.experience}
+        p #{user.phone}
+        p #{user.local.email}
+
+        h3 Professions:
+        p #{user.professions}
+        h3 Availability:
+        p #{user.availability}
+        h3 About Me:
+        p #{user.aboutme}
+
+        h3 Reviews:
+        if(user_email != user.local.email)
+            .form-group
+                form(class="form-block", action="", method="post")
+                    label Comment Here
+                    textarea.form-control(name="description", cols="40", rows="5")
+                    br
+                    input(type="submit", class="btn btn-info", style="float:left", value="Submit")
+
+

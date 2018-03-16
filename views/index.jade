@@ -1,0 +1,98 @@
+extends layout
+
+block content
+    nav(class="navbar navbar-default navbar-fixed-top" role="navigation")
+        div(class="navbar-header"
+            style="margin-left: 8%;")
+            a(class="navbar-brand", href="/") WeFixIt
+        div(style="margin-right: 2%;")
+            ul(class="nav navbar-nav navbar-right")
+            
+    .jumbotron
+        .container
+            .row
+                .col-md-9
+                    h1 Find your worker today!
+                    p Browse from thousands of qualified and vetted workers.
+                    a(href="#") Learn More
+                .col-md-3
+                    form(action="/login", method="post")
+                        span
+                            label Email
+                            input(type="text" class="form-control" name="email")
+                        br
+                        span
+                            label Password
+                            input(type="password", class="form-control", name="password")
+                        br
+                        .row
+                            .col-md-5
+                                button(type="submit" class="btn btn-default") Login
+                            .col-md-7
+                                button(type="submit" class="btn btn-default") Login as guest
+
+                    a(class="btn btn-block btn-facebook" href="/auth/facebook")
+                        span(class="fa fa-facebook") Login with Facebook
+
+    if signupError.length > 0
+        .alert.alert-danger #{signupError}
+    if loginError.length > 0
+        .alert.alert-danger #{loginError}
+    if signupSuccess.length > 0
+        .alert.alert-success #{signupSuccess}
+
+    .register
+        .container
+            .row
+                .col-md-5
+                    img(src="/images/builder.png")
+                .col-md-7
+                    h1 Register Now!
+                    form(action="/register", method="post")
+                        .row
+                            .col-md-6
+                                span
+                                    label First Name
+                                    input(type="text" class="form-control" name="first_name")
+                            .col-md-6
+                                span
+                                    label Last Name
+                                    input(type="text" class="form-control" name="last_name")
+                        br
+                        span
+                            label E-mail
+                            input(type="text" class="form-control" name="email")
+                        br
+                        span
+                            label Confirm E-mail
+                            input(type="text" class="form-control" name="email_confirm")
+                        br
+                        span
+                            label Password
+                            input(type="password" class="form-control" name="password")
+                        br
+                        span
+                            label Confirm Password
+                            input(type="password" class="form-control" name="password_confirm")
+                        br
+                        input(class="btn btn-default", type="submit", value="Register")
+
+    .learn-more
+        .container
+            .row
+                .col-md-4
+                    h3 Cleaning
+                    p Had a crazy banger last night? Beer stains on your carpet and your boss is coming in for dinner tonight? A cleaner can have your place looking better in no time.
+                    p
+                        a(href="/browse.html") Get a cleaner now!
+                .col-md-4
+                    h3 Electrician
+                    p Power outage? TV not working? Dank memes not dank enough? Get a qualified electrician to fix it for you and save yourself the stress.
+                    p
+                        a(href="/browse.html") Get an electrician today!
+                .col-md-4
+                    h3 Plumber
+                    p No one enjoys toilet problems. Let someone else deal with it.
+                    p
+                        a(href="/browse.html") Plumb your toilet today!
+

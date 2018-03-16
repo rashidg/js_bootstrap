@@ -1,0 +1,140 @@
+//
+   Created by rashid-laptop on 2016-04-02.
+
+extends layout
+block content
+    nav(class="navbar navbar-default navbar-fixed-top" role="navigation")
+        div(class="navbar-header"
+        style="margin-left: 8%;")
+            a(class="navbar-brand", href="/") WeFixIt
+        div(style="margin-right: 2%;")
+
+            ul(class="nav navbar-nav navbar-right")
+                if (isAdmin)
+                    li
+                        a(href="/admin.html" class="btn") Admin
+                li
+                    a(href="/listings.html" class="btn") Home
+                li
+                    a(href="/profile" class="btn") My Profile
+                li
+                    a(href="/contact" class="btn") Contact Us
+                li
+                    a(href="/logout" class="btn") Logout
+
+    form.container(class="form-block", action="", method="post")
+        .row
+            .col-md-5
+                h3
+                    strong Personal Information
+                .form-group
+                    label Name
+                    if (user.local.name)
+                        input.form-control(type="text", value="#{user.local.name}", name="new_name")
+                    if (user.facebook.name)
+                        input.form-control(type="text", value="#{user.facebook.name}", name="new_name")
+                .form-group
+                    label Email
+                    if (user.local.email)
+                        input.form-control(type="text", value="#{user.local.email}", name="new_email")
+                    if (user.facebook.email)
+                        input.form-control(type="text", value="#{user.facebook.email}", name="new_email")
+                .form-group
+                    label Phone
+                    input.form-control(type="tel", value="#{user.phone}", name="phone")
+            .col-md-2
+            .col-md-5
+                h3
+                    strong About
+                .form-group
+                    label Education
+                    input.form-control(type="text", value="#{user.education}" name="education")
+                .form-group
+                    label Years of Experience
+                    input.form-control(type="text", value="#{user.experience}", name="experience")
+        .row
+            .col-md-5
+                h3
+                    strong Professions
+                .form-group
+                    label Primary
+                    select.form-control(name='new_primary')
+                        option Select a Profession
+                        for profession in professions
+                            if (user.professions)
+                                if (profession.profession == user.professions[0])
+                                    option(selected="selected") #{profession.profession}
+                                else
+                                    option #{profession.profession}
+                            else
+                                option #{profession.profession}
+                .form-group
+                    label Secondary
+                    select.form-control(name='new_secondary')
+                        option Select a Profession
+                        for profession in professions
+                            if (user.professions)
+                                if (user.professions.length >= 2)
+                                    if (profession.profession == user.professions[1])
+                                        option(selected="selected") #{profession.profession}
+                                    else
+                                        option #{profession.profession}
+                                else
+                                    option #{profession.profession}
+                            else
+                                option #{profession.profession}
+                .form-group
+                    label Other
+                    select.form-control(name='new_other1')
+                        option Select a Profession
+                        for profession in professions
+                            if (user.professions)
+                                if (user.professions.length >= 3)
+                                    if (profession.profession == user.professions[2])
+                                        option(selected="selected") #{profession.profession}
+                                    else
+                                        option #{profession.profession}
+                                else
+                                    option #{profession.profession}
+                            else
+                                option #{profession.profession}
+                .form-group
+                    label Other
+                    select.form-control(name='new_other2')
+                        option Select a Profession
+                        for profession in professions
+                            if (user.professions)
+                                if (user.professions.length >= 4)
+                                    if (profession.profession == user.professions[3])
+                                        option(selected="selected") #{profession.profession}
+                                    else
+                                        option #{profession.profession}
+                                else
+                                    option #{profession.profession}
+                            else
+                                option #{profession.profession}
+                .form-group
+                    label Other
+                    select.form-control(name='new_other3')
+                        option Select a Profession
+                        for profession in professions
+                            if (user.professions)
+                                if (user.professions.length == 5)
+                                    if (profession.profession == user.professions[4])
+                                        option(selected="selected") #{profession.profession}
+                                    else
+                                        option #{profession.profession}
+                                else
+                                    option #{profession.profession}
+                            else
+                                option #{profession.profession}
+                .form(class="form-block", action="", method="post")
+                    p Don't see your profession(s) listed here? #[br] Request for them to be added #[a(href="../contact") here]!
+            .col-md-2
+            .col-md-5
+                .form-group
+                    label Availability
+                    if (user.availability)
+                        input.form-control(type="text", value="#{user.availability}", name="availability")
+                        
+        input(type="submit", class="btn btn-info", style="float:right", value="Submit")

@@ -1,0 +1,74 @@
+extends layout
+block content
+
+    nav(class="navbar navbar-default navbar-fixed-top" role="navigation")
+        div(class="navbar-header"
+        style="margin-left: 8%;")
+            a(class="navbar-brand", href="/") WeFixIt
+        div(style="margin-right: 2%;")
+
+            ul(class="nav navbar-nav navbar-right")
+                if (isAdmin)
+                    li
+                        a(href="/admin.html" class="btn") Admin
+                li
+                    a(href="/listings.html" class="btn") Home
+                li
+                    a(href="/profile" class="btn") My Profile
+                li
+                    a(href="/edit" class="btn") Edit Profile
+                li
+                    a(href="/contact" class="btn") Contact Us
+                li
+                    a(href="/logout" class="btn") Logout
+    .container
+        h2 Contact us!
+    .container
+        h4 WeFixIt, Inc.
+        p 113 Carlton Street
+        p Toronto, ON M5B 7H1
+        p Phone: (647) 111- 2137
+        p Email: wefixit@fixes.ca
+    //.form.container(class="form-block", action="", method="post")
+        .form-group
+            label What are some professions you would like to add?
+            input.form-control(type="text", name="request1")
+        .form-group
+            input.form-control(type="text", name="request2")
+        .form-group
+            input.form-control(type="text", name="request3")
+        .form-group
+            label Is there anything you'd like to ask us?
+            textarea.form-control(type="text", name="questions", rows="5")
+        input(type="submit", class="btn btn-info", style="float:right", value="Submit")
+    .container
+        script(src='https://maps.googleapis.com/maps/api/js?v=3.exp').
+        div(style='overflow:hidden;height:440px;width:700px;')
+            div(id='gmap_canvas' style='height:440px;width:700px;')
+        div
+            small
+                a(href="http://embedgooglemaps.com">embed google maps)
+        div
+            small
+                a(href="http://freedirectorysubmissionsites.com/">link directories)
+        //style(#gmap_canvas img{max-width:none!important;background:none!important})
+        script(type='text/javascript').
+            function init_map(){
+                var myOptions = {
+                    zoom:10,
+                    center:new google.maps.LatLng(43.66240699999999,-79.37670250000002),
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                };
+                map = new google.maps.Map(document.getElementById('gmap_canvas'), myOptions);
+                marker = new google.maps.Marker({
+                    map: map,position: new google.maps.LatLng(43.66240699999999,-79.37670250000002)
+                });
+                infowindow = new google.maps.InfoWindow({
+                    content:'<strong>WeFixIt</strong><br>113 Carlton Street, Toronto, Ontario, Canada<br>'
+                });
+                google.maps.event.addListener(marker, 'click', function(){
+                    infowindow.open(map,marker);
+                });
+                infowindow.open(map,marker);
+            }
+            google.maps.event.addDomListener(window, 'load', init_map);
